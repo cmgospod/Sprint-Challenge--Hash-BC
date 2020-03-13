@@ -1,6 +1,7 @@
 import hashlib
 import requests
 
+import json
 import sys
 
 from uuid import uuid4
@@ -19,14 +20,19 @@ def proof_of_work(last_proof):
     - p is the previous proof, and p' is the new proof
     - Use the same method to generate SHA-256 hashes as the examples in class
     """
-
+    print(last_proof)
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
-    #  TODO: Your code here
-
+    proof = 1000000
+    encoded = str(last_proof).encode()
+    last_hash = hashlib.sha256(encoded).hexdigest()
+    while valid_proof(last_hash, proof) is False:
+        proof += 1
+        if proof > 100000000:
+            return 0
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
+
     return proof
 
 
@@ -38,9 +44,11 @@ def valid_proof(last_hash, proof):
 
     IE:  last_hash: ...AE9123456, new hash 123456E88...
     """
-
-    # TODO: Your code here!
-    pass
+    guess = str(proof).encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    # old_guess = str(last_hash).encode()
+    # old_guess_hash = hashlib.sha256(old_guess).hexdigest()
+    return guess_hash[:6] == last_hash[-6:]
 
 
 if __name__ == '__main__':
