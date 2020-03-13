@@ -29,7 +29,7 @@ def proof_of_work(last_proof):
     last_hash = hashlib.sha256(encoded).hexdigest()
     while valid_proof(last_hash, proof) is False:
         proof += 1
-        if proof > 100000000:
+        if proof > 10000000:
             return 0
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
 
