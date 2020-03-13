@@ -3,8 +3,7 @@ from hashtables import (HashTable,
                         hash_table_insert,
                         hash_table_remove,
                         hash_table_retrieve,
-                        hash_table_resize,
-                        hash)
+                        hash_table_resize,)
 
 
 def get_indices_of_item_weights(weights, length, limit):
@@ -17,10 +16,9 @@ def get_indices_of_item_weights(weights, length, limit):
         zero = hash_table_retrieve(ht, limit-weight)
         if zero is not None:
             one = hash_table_retrieve(ht, weight)
-            oneweight = weight
             if zero == one != None:
                 for test in weights:
-                    if test == oneweight:
+                    if test == weight:
                         one = weights.index(test)
             return (zero, one)
     return None
